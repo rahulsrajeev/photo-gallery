@@ -1,7 +1,283 @@
+<!DOCTYPE html>
 <html>
 <head>
-<title>Photo Album</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Gallery</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  
+	<title>Instagram-like Image Popup</title>
+	<style type="text/css">
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #fafafa;
+		}
+
+		.container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			padding: 20px;
+		}
+
+		.img-fluid {
+			margin: 10px;
+			cursor: pointer;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+			transition: transform 0.2s ease-in-out;
+			height: 200px;
+			width: 200px;
+			object-fit: cover;
+		}
+
+		.img-fluid:hover {
+			transform: scale(1.05);
+		}
+
+		.popup {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.7);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 999;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.2s ease-in-out;
+		}
+
+		.popup.active {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.popup-content {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			width: 80%;
+			height: 80%;
+			background-color: white;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+			padding: 20px;
+			overflow: hidden;
+		}
+
+		.popup-image {
+			flex: 1;
+			height: 100%;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			margin-right: 20px;
+		}
+
+		.popup-options {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+		}
+
+		.popup-button {
+			background-color: #3897f0;
+			color: white;
+			font-size: 16px;
+			font-weight: bold;
+			padding: 10px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin-bottom: 10px;
+		}
+
+		.popup-button:hover {
+			background-color: #51a0fa;
+		}
+
+		.popup-label {
+			font-size: 14px;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		.popup-slider {
+			width: 100%;
+			margin-bottom: 10px;
+		}
+
+		.close-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			color: white;
+			font-size: 24px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.button-container {
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+		}
+
+			.button {
+			flex-grow: 1;
+		}	
+		img {
+            width: 100%;
+            border: 4px solid black;
+        }
+
+	</style>
 </head>
 <body>
-<h1>Photo Album</h1>
-</html>
+  <h1><center>Responsive Image Gallery</center></h1>
+  <hr>
+  <div class="container my-5">
+	<div class="row">
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?EiffelTower" class="img-fluid" alt="Image 1" >
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?EmpireStateBuilding" class="img-fluid" alt="Image 2">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?TajMahal" class="img-fluid" alt="Image 3">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?SydneyOperaHouse" class="img-fluid" alt="Image 4">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?BurjKhalifa" class="img-fluid" alt="Image 5">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?LotusTemple" class="img-fluid" alt="Image 6">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?BigBen" class="img-fluid" alt="Image 7">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?Colosseum" class="img-fluid" alt="Image 8">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?GoldenGateBridge" class="img-fluid" alt="Image 9">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?LeaningTowerOfPisa" class="img-fluid" alt="Image 10">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?PetronasTowers" class="img-fluid" alt="Image 11">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?GreatWallofChina" class="img-fluid" alt="Image 12">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?petra" class="img-fluid" alt="Image 13">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?Machu_Picchu" class="img-fluid" alt="Image 14">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?HooverDam" class="img-fluid" alt="Image 15">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?IndiaGate" class="img-fluid" alt="Image 16">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?Parthenon" class="img-fluid" alt="Image 17">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?TheShard" class="img-fluid" alt="Image 18">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?ChristRedeemer" class="img-fluid" alt="Image 19">
+	  </div>
+	  <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-4">
+		<img src="https://source.unsplash.com/random/400x400/?SpaceNeedle" class="img-fluid" alt="Image 20">
+	  </div>
+	</div>
+  </div>
+	  <div class="popup">
+		<div class="popup-content">
+		  <div class="popup-image"></div>
+		  <div class="popup-options">
+			<button class="popup-button" id="reddish-button">Make Blueish</button>
+			<button class="popup-button" id="greenish-button">Make Reddish</button>
+			<button class="popup-button" id="blueish-button">Make Greenish</button>
+			<button class="popup-button" id="grayscaleButton">Grayscale</button>
+			<div class="popup-label">Brightness</div>
+			<input type="range" min="20" max="180" value="100" class="popup-slider" id="brightness-slider">
+			<div class="popup-label">Contrast</div>
+			<input type="range" min="20" max="180" value="100" class="popup-slider" id="contrast-slider">
+		  </div>
+		  <div class="close-button">&times;</div>
+		</div>
+	  </div>
+  
+	  <script>
+		const images = document.querySelectorAll('.img-fluid');
+		const popup = document.querySelector('.popup');
+		const popupImage = document.querySelector('.popup-image');
+		const closeButton = document.querySelector('.close-button');
+		const brightnessSlider = document.getElementById("brightness-slider");
+		const contrastSlider = document.getElementById("contrast-slider");
+		const reddishButton = document.getElementById("reddish-button");
+		const greenishButton = document.getElementById("greenish-button");
+		const blueishButton = document.getElementById("blueish-button");
+  
+		images.forEach((image) => {
+		  image.addEventListener('click', () => {
+			popupImage.style.backgroundImage = `url(${image.src})`;
+			popup.classList.add('active');
+		  });
+		});
+  
+		closeButton.addEventListener('click', () => {
+		popup.classList.remove('active');
+		brightnessSlider.value = 0;
+		contrastSlider.value = 0;
+		popupImage.style.filter = 'none';
+		});
+  
+		brightnessSlider.addEventListener('input', () => {
+		  const brightnessValue = brightnessSlider.value;
+		  popupImage.style.filter = `brightness(${brightnessValue}%)`;
+		});
+  
+		contrastSlider.addEventListener('input', () => {
+		  const contrastValue = contrastSlider.value;
+		  popupImage.style.filter = `contrast(${contrastValue}%)`;
+		});
+  
+		reddishButton.addEventListener('click', () => {
+		  popupImage.style.filter = "hue-rotate(45deg) saturate(200%)";
+		});
+  
+		greenishButton.addEventListener('click', () => {
+		  popupImage.style.filter = "hue-rotate(135deg) saturate(200%)";
+		});
+  
+		blueishButton.addEventListener('click', () => {
+		  popupImage.style.filter = "hue-rotate(-45deg) saturate(200%)";
+		});
+
+		grayscaleButton.addEventListener('click', () => {
+			popupImage.style.filter = 'grayscale(100%)';
+		});
+  
+	  </script>
+	</body>
+  </html>
